@@ -3,15 +3,25 @@ package br.com.invext.invext_app.dtos;
 
 import br.com.invext.invext_app.enums.TicketStatus;
 import br.com.invext.invext_app.enums.TicketType;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 
 public class TicketResponse {
 
+    @Schema(description = "Ticket ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "63e42e3f-8ef3-4485-ab38-80a2e31720a4")
     private String id;
+
+    @Schema(description = "Ticket description", requiredMode = Schema.RequiredMode.REQUIRED, example = "My card is blocked")
     private String description;
+
+    @Schema(description = "Ticket type", requiredMode = Schema.RequiredMode.REQUIRED, enumAsRef = true, example = "CARDS")
     private TicketType ticketType;
+
+    @Schema(description = "Ticket status", requiredMode = Schema.RequiredMode.REQUIRED, enumAsRef = true, example = "IN_PROGRESS")
     private TicketStatus ticketStatus;
+
+    @Schema(description = "Date when the ticket was created", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime createdAt;
 
     public String getId() {
