@@ -8,7 +8,9 @@ import br.com.invext.invext_app.models.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,6 +33,12 @@ public class TicketService {
     public TicketResponse create(TicketRequest ticketRequest) {
         var ticket = TicketService.toModel(ticketRequest);
         var employees = employeeService.getEmployeesBy(ticket.getTicketType());
+
+        if (employees.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatusCode.valueOf(404),
+                    "Not found any employees for that ticket type");
+        }
 
         employees.stream()
                 .filter(TicketService::filterAvailableEmployee)
