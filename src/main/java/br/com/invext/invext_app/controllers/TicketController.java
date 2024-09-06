@@ -23,12 +23,12 @@ public class TicketController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new ticket", description = "Create new ticket and send to the respective team for handling.")
     @ApiResponse(responseCode = "201", description = "Ticket created with success",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TicketResponse.class)) })
     public ResponseEntity<TicketResponse> create(@RequestBody @Valid TicketRequest ticketRequest) {
-        return ResponseEntity.ok().body(ticketService.create(ticketRequest));
+        return ResponseEntity.status(201)
+                .body(ticketService.create(ticketRequest));
     }
 }
