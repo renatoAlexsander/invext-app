@@ -72,6 +72,14 @@ public class TicketService {
         return Objects.isNull(employeeTicketsCount) || employeeTicketsCount < 3;
     }
 
+    public Map<Long, Integer> getEmployeeCountTicketsCache() {
+        return employeeCountTicketsCache;
+    }
+
+    public Queue<Ticket> getTicketQueue() {
+        return TICKET_QUEUE;
+    }
+
     public static TicketResponse toResponse(Ticket ticket) {
         TicketResponse response = new TicketResponse();
         BeanUtils.copyProperties(ticket, response);
